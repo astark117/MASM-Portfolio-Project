@@ -530,7 +530,7 @@ PrintArray ENDP
 ; _________________________________________________________________________________________________________________
 SumCalc	PROC
 	push	EBP
-	mov		EBP, ESP
+	mov	EBP, ESP
     	mov     ESI, [EBP + 8]
     	mov     EDI, [EBP + 12]
     	mov     ECX, ARRAYSIZE
@@ -545,7 +545,7 @@ SumLoop:
     	mov     [EDI], EDX
 
 
-	pop		EBP
+	pop	EBP
 	RET     8
 SumCalc ENDP
 
@@ -598,7 +598,7 @@ PrintSum ENDP
 ; _________________________________________________________________________________________________________________
 AvgCalc PROC
 	push	EBP
-	mov		EBP, ESP
+	mov	EBP, ESP
 	; move sum into EAX and ARRAYSIZE into EBX and divide, check EDX for remainder to figure out rounding
     	xor     EDX, EDX
     	mov     EAX, [EBP + 8]
@@ -613,8 +613,8 @@ AvgCalc PROC
     	jl      negativeRound
 
 positiveRound:
-    	cmp		EDX, EBX				; compares remainder and (divisor/2), if remainder is greater, rounds up, if not rounds down
-    	jge		RoundUp
+    	cmp	EDX, EBX				; compares remainder and (divisor/2), if remainder is greater, rounds up, if not rounds down
+    	jge	RoundUp
     	jl      AvgDone
 
 RoundUp:
@@ -623,8 +623,8 @@ RoundUp:
 
 negativeRound:
     	neg     EDX
-    	cmp		EDX, EBX				; compares remainder and (divisor/2), if remainder is greater, rounds up, if not rounds down
-   	jge		RoundDown
+    	cmp	EDX, EBX				; compares remainder and (divisor/2), if remainder is greater, rounds up, if not rounds down
+   	jge	RoundDown
     	jl      AvgDone
 
 RoundDown:
@@ -633,7 +633,7 @@ RoundDown:
 
 AvgDone: 
     	mov     [EDI], EAX
-    	pop		EBP
+    	pop	EBP
 	RET     8
 
 AvgCalc ENDP
