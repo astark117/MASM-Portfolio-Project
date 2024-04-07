@@ -17,14 +17,14 @@ mGetString	MACRO	prompt, str_count, buffer, count
    	Call    WriteString
 
     	mov     EDX, buffer
-	mov		ECX, str_count
+	mov	ECX, str_count
 	call	ReadString
-	mov		count, EAX
-	mov		buffer, EDX
+	mov	count, EAX
+	mov	buffer, EDX
 ENDM
 
 mDisplayString	MACRO string
-	mov		EDX, string
+	mov	EDX, string
 	Call	WriteString
 ENDM
 
