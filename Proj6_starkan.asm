@@ -39,14 +39,14 @@ BUFFER = 100                ; large buffer size to enable entry of leading 0s
 					"They can be negative or positive values, but must fit inside a SDWORD data type.",0
 	user_prompt	BYTE		"Enter a signed integer value: ", 0
 	error_prompt	BYTE		"Error: Invalid input. Please try again.", 0
-    	display_nums    BYTE        "The numbers you have entered are: ",0
-    	display_sum     BYTE        "The sum of these integers is: ",0
-    	display_avg     BYTE        "The average of these integers is: ",0
+    	display_nums    BYTE        	"The numbers you have entered are: ",0
+    	display_sum     BYTE        	"The sum of these integers is: ",0
+    	display_avg     BYTE        	"The average of these integers is: ",0
 	input_buffer	BYTE		BUFFER DUP(?)						; max characters that can be held in SDWORD data type + 1 for null char
 	num_array	SDWORD		10 DUP(?)						; SDWORD array for user input values
-   	spacing         BYTE        ", ",0
-   	output_buffer   BYTE        MAX DUP(?)                                 			 ; array to hold string output of a SDWORD integer
-  	rev_buffer      BYTE        MAX DUP(?)
+   	spacing         BYTE        	", ",0
+   	output_buffer   BYTE        	MAX DUP(?)                                 			 ; array to hold string output of a SDWORD integer
+  	rev_buffer      BYTE        	MAX DUP(?)
 	sum		SDWORD		?
 	avg		SDWORD		?
 	byte_count	DWORD		0							; counts the number of characters in string
