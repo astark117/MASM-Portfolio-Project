@@ -113,10 +113,10 @@ main ENDP
 ; Postconditions:None
 ;
 ; Receives:
-;			[EBP + 8]	= address of array (string)
+;	[EBP + 8]	= address of array (string)
 ;
 ; Returns: 
-;			None
+;	None
 ; _________________________________________________________________________________________________________________
 introduction PROC
 	push	EBP
@@ -138,14 +138,14 @@ introduction ENDP
 ; Postconditions:None
 ;
 ; Receives:
-;           [EBP + 28]  = counter for num_array index
-;			[EBP + 24]	= error_prompt: stores a string to be displayed in case of error
-;			[EBP + 20]  = byte_count: stores the number of characters in user input
-;			[EBP + 12]  = input_buffer: holds user input
-;			[EBP + 8]	= user_prompt: address of array (string)
+;       [EBP + 28]  = counter for num_array index
+;	[EBP + 24]	= error_prompt: stores a string to be displayed in case of error
+;	[EBP + 20]  = byte_count: stores the number of characters in user input
+;	[EBP + 12]  = input_buffer: holds user input
+;	[EBP + 8]	= user_prompt: address of array (string)
 ;
 ; Returns: 
-;			[EBP + 16]  = num_array: stores integer values of user input
+;	[EBP + 16]  = num_array: stores integer values of user input
 ; _________________________________________________________________________________________________________________
 ReadVal PROC
 	push    EBP
@@ -195,8 +195,8 @@ ReadVal ENDP
 ;			
 ;
 ; Returns: 
-;			EAX = 1 if user input is invalid
-;           EAX = 0 if user input is valid
+;		EAX = 1 if user input is invalid
+;               EAX = 0 if user input is valid
 ; _________________________________________________________________________________________________________________
 Validate PROC
     push    EBP
@@ -271,7 +271,7 @@ Validate ENDP
 ;			
 ;
 ; Returns: 
-;			EDI = ouput array memory address containing integer SDWORD values
+;		EDI = ouput array memory address containing integer SDWORD values
 ; _________________________________________________________________________________________________________________
 ConvertString PROC
     push    EBP
@@ -355,7 +355,7 @@ ConvertString ENDP
 ;           [EBP + 12]  = input SDWORD
 ;
 ; Returns: 
-;			[EBP + 8]  = output buffer containing SDWORD as backward string
+;	    [EBP + 8]  = output buffer containing SDWORD as backward string
 ;           [EBP + 16] = output buffer containing SDWORD as correct string
 ; _________________________________________________________________________________________________________________
 
@@ -441,10 +441,10 @@ WriteVal ENDP
 ; Postconditions:None
 ;
 ; Receives:
-;           [EBP + 8]  = input buffer
+;        [EBP + 8]  = input buffer
 ;
 ; Returns: 
-;			[EBP + 8]  = cleared buffer
+;	[EBP + 8]  = cleared buffer
 ;           
 ; _________________________________________________________________________________________________________________
 ClearBuffer PROC
@@ -471,12 +471,12 @@ ClearBuffer ENDP
 ; Postconditions:None
 ;
 ; Receives:
-;			[EBP + 8]	= address of a SDWORD array
+;	    [EBP + 8]	= address of a SDWORD array
 ;           [EBP + 12]  = display message
 ;           [EBP + 16]  = delimeter for values in array
 ;
 ; Returns: 
-;			[EBP + 20]  = output buffer for backward strings
+;	    [EBP + 20]  = output buffer for backward strings
 ;           [EBP + 24]  = output buffer for corrected strings
 ; _________________________________________________________________________________________________________________
 PrintArray PROC
@@ -523,10 +523,10 @@ PrintArray ENDP
 ; Postconditions:None
 ;
 ; Receives:
-;			[EBP + 8]	= num_array address (SDWORD array)
+;	[EBP + 8]	= num_array address (SDWORD array)
 ;
 ; Returns: 
-;			[EBP + 12]  = sum (SDWORD)
+;	[EBP + 12]  = sum (SDWORD)
 ; _________________________________________________________________________________________________________________
 SumCalc	PROC
 	push	EBP
@@ -559,12 +559,12 @@ SumCalc ENDP
 ; Postconditions:None
 ;
 ; Receives:
-;			[EBP + 8]	= sum value (SDWORD)
-;           [EBP + 12]  = display message
+;	[EBP + 8]	= sum value (SDWORD)
+;       [EBP + 12]  = display message
 ;
 ; Returns: 
-;			[EBP + 16]  = output buffer with backward string
-;           [EBP + 20]  = output buffer with correct string
+;	[EBP + 16]  = output buffer with backward string
+;       [EBP + 20]  = output buffer with correct string
 ; _________________________________________________________________________________________________________________
 PrintSum PROC
     push    EBP
@@ -591,10 +591,10 @@ PrintSum ENDP
 ; Postconditions:None
 ;
 ; Receives:
-;			[EBP + 8]	= sum (SDWORD)
+;	[EBP + 8]	= sum (SDWORD)
 ;
 ; Returns: 
-;           [EBP + 12]  = avg (SDWORD)
+;        [EBP + 12]  = avg (SDWORD)
 ; _________________________________________________________________________________________________________________
 AvgCalc PROC
 	push	EBP
@@ -607,7 +607,7 @@ AvgCalc PROC
     	cdq
    	mov     EBX, ARRAYSIZE
     	idiv    EBX
-    	shr		EBX, 1					; shifts bits 1 to the right, dividing the divisor by 2
+    	shr	EBX, 1					; shifts bits 1 to the right, dividing the divisor by 2
     	cmp     EDX, 0
     	jge     positiveRound
     	jl      negativeRound
@@ -648,12 +648,12 @@ AvgCalc ENDP
 ; Postconditions:None
 ;
 ; Receives:
-;			[EBP + 8]	= avg value (SDWORD)
-;           [EBP + 12]  = display message
+;	[EBP + 8]	= avg value (SDWORD)
+;       [EBP + 12]  = display message
 ;
 ; Returns: 
-;			[EBP + 16]  = output buffer with backward string
-;           [EBP + 20]  = output buffer with correct string
+;	[EBP + 16]  = output buffer with backward string
+;       [EBP + 20]  = output buffer with correct string
 ; _________________________________________________________________________________________________________________
 PrintAvg PROC
     push    EBP
