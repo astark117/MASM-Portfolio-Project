@@ -13,10 +13,10 @@ TITLE STRING PRIMITIVES & MACROS   (Proj6_starkan.asm)
 INCLUDE Irvine32.inc
 
 mGetString	MACRO	prompt, str_count, buffer, count
-    mov     EDX, prompt
-    Call    WriteString
+	mov     EDX, prompt
+   	Call    WriteString
 
-    mov     EDX, buffer
+    	mov     EDX, buffer
 	mov		ECX, str_count
 	call	ReadString
 	mov		count, EAX
@@ -30,27 +30,27 @@ ENDM
 
 
 ARRAYSIZE = 10			    ; number of integers a user can input
-MAX = 12					; max string length of user input to fit in a SDWORD (includes sign and null terminator)
+MAX = 12			; max string length of user input to fit in a SDWORD (includes sign and null terminator)
 BUFFER = 100                ; large buffer size to enable entry of leading 0s
 
 
 .data
 	intro_message	BYTE		"This program will accept 10 integer values and display them, their sum, and their average.",13,10, \
-								"They can be negative or positive values, but must fit inside a SDWORD data type.",0
-	user_prompt		BYTE		"Enter a signed integer value: ", 0
+					"They can be negative or positive values, but must fit inside a SDWORD data type.",0
+	user_prompt	BYTE		"Enter a signed integer value: ", 0
 	error_prompt	BYTE		"Error: Invalid input. Please try again.", 0
-    display_nums    BYTE        "The numbers you have entered are: ",0
-    display_sum     BYTE        "The sum of these integers is: ",0
-    display_avg     BYTE        "The average of these integers is: ",0
-	input_buffer	BYTE		BUFFER DUP(?)									; max characters that can be held in SDWORD data type + 1 for null char
-	num_array		SDWORD		10 DUP(?)									; SDWORD array for user input values
-    spacing         BYTE        ", ",0
-    output_buffer   BYTE        MAX DUP(?)                                  ; array to hold string output of a SDWORD integer
-    rev_buffer      BYTE        MAX DUP(?)
-	sum				SDWORD		?
-	avg				SDWORD		?
-	byte_count		DWORD		0											; counts the number of characters in string
-	goodbye			BYTE		"Thank you for testing this program. Goodbye.",0
+    	display_nums    BYTE        "The numbers you have entered are: ",0
+    	display_sum     BYTE        "The sum of these integers is: ",0
+    	display_avg     BYTE        "The average of these integers is: ",0
+	input_buffer	BYTE		BUFFER DUP(?)						; max characters that can be held in SDWORD data type + 1 for null char
+	num_array	SDWORD		10 DUP(?)						; SDWORD array for user input values
+   	spacing         BYTE        ", ",0
+   	output_buffer   BYTE        MAX DUP(?)                                 			 ; array to hold string output of a SDWORD integer
+  	rev_buffer      BYTE        MAX DUP(?)
+	sum		SDWORD		?
+	avg		SDWORD		?
+	byte_count	DWORD		0							; counts the number of characters in string
+	goodbye		BYTE		"Thank you for testing this program. Goodbye.",0
 	
 
 .code
@@ -58,45 +58,45 @@ main PROC
 	push	OFFSET intro_message
 	call	introduction
 
-	mov		ECX, ARRAYSIZE		; sets loop counter to number of user inputs
-    xor     EBX, EBX
+	mov	ECX, ARRAYSIZE		; sets loop counter to number of user inputs
+	xor     EBX, EBX
 ReadIntLoop:
-	push	ECX						; saves loop counter value
+	push	ECX			; saves loop counter value
 	push	OFFSET error_prompt
 	push	byte_count
 	push	OFFSET num_array
 	push	OFFSET input_buffer
 	push	OFFSET user_prompt
 	call	ReadVal
-	pop		ECX						; restores loop counter
+	pop	ECX			; restores loop counter
 	loop	ReadIntLoop
 
-    push    OFFSET rev_buffer
-    push    OFFSET output_buffer
-    push    OFFSET spacing
-    push    OFFSET display_nums
-    push    OFFSET num_array
-    call    PrintArray
+    	push    OFFSET rev_buffer
+   	push    OFFSET output_buffer
+   	push    OFFSET spacing
+    	push    OFFSET display_nums
+    	push    OFFSET num_array
+    	call    PrintArray
 
-    push    OFFSET sum
-    push    OFFSET num_array
+    	push    OFFSET sum
+    	push    OFFSET num_array
 	call	SumCalc
 
-    push    OFFSET rev_buffer
-    push    OFFSET output_buffer
-    push    OFFSET display_sum
-    push    sum
-    call    PrintSum
+    	push    OFFSET rev_buffer
+    	push    OFFSET output_buffer
+    	push    OFFSET display_sum
+    	push    sum
+    	call    PrintSum
 
-    push    OFFSET avg
-    push    sum
+    	push    OFFSET avg
+    	push    sum
 	call	AvgCalc
 
-    push    OFFSET rev_buffer
-    push    OFFSET output_buffer
-    push    OFFSET display_avg
-    push    avg
-    call    PrintAvg
+    	push    OFFSET rev_buffer
+    	push    OFFSET output_buffer
+   	push    OFFSET display_avg
+    	push    avg
+    	call    PrintAvg
 
 	push	OFFSET goodbye
 	call	Farewell
@@ -120,13 +120,13 @@ main ENDP
 ; _________________________________________________________________________________________________________________
 introduction PROC
 	push	EBP
-	mov		EBP, ESP
-	mov		EDX, [EBP + 8]	; accesses intro_message address on stack
+	mov	EBP, ESP
+	mov	EDX, [EBP + 8]		; accesses intro_message address on stack
 	call	WriteString
 	call	CrLf
 	call	CrLf
-	pop		EBP
-	RET		4
+	pop	EBP
+	RET	4
 introduction ENDP
 
 ; _______________________________________________________________________________________________________________
@@ -148,34 +148,34 @@ introduction ENDP
 ;			[EBP + 16]  = num_array: stores integer values of user input
 ; _________________________________________________________________________________________________________________
 ReadVal PROC
-    push    EBP
-    mov     EBP, ESP
+	push    EBP
+	mov     EBP, ESP
 
-    mov		EDI, [EBP + 16]        
+	mov	EDI, [EBP + 16]        
     
 
 ValErrorLoop:
-    mGetString  [EBP + 8], BUFFER, [EBP+12], [EBP+20]      	; gets user input
+    	mGetString  [EBP + 8], BUFFER, [EBP+12], [EBP+20]      	; gets user input
 
-    mov     ESI, [EBP + 12]        
-    mov     ECX, [EBP + 20]        
+    	mov     ESI, [EBP + 12]        
+    	mov     ECX, [EBP + 20]        
 	call    Validate                                ; Validate the input string
-    cmp     EAX, 0                          
-    jnz     Error                                   ; If input is invalid display error message and reprompt
+    	cmp     EAX, 0                          
+    	jnz     Error                                   ; If input is invalid display error message and reprompt
 
-    mov     ESI, [EBP + 12]        
-    mov     ECX, [EBP + 20]        
+    	mov     ESI, [EBP + 12]        
+    	mov     ECX, [EBP + 20]        
 	call    ConvertString                   ; Convert string to SDWORD and verify value is in range
-    cmp     EAX, 0
-    jnz     Error                           ; if input is out of range display error and reprompt
+    	cmp     EAX, 0
+    	jnz     Error                           ; if input is out of range display error and reprompt
 
-    pop     EBP
-    RET     20
+    	pop     EBP
+    	RET     20
 
 Error:                                          ; Display error message
-    mDisplayString [EBP + 24]      
-    call    CrLf
-    jmp     ValErrorLoop                    
+    	mDisplayString [EBP + 24]      
+    	call    CrLf
+    	jmp     ValErrorLoop                    
 
 ReadVal ENDP
 
@@ -531,18 +531,18 @@ PrintArray ENDP
 SumCalc	PROC
 	push	EBP
 	mov		EBP, ESP
-    mov     ESI, [EBP + 8]
-    mov     EDI, [EBP + 12]
-    mov     ECX, ARRAYSIZE
-    xor     EDX, EDX
-    CLD
+    	mov     ESI, [EBP + 8]
+    	mov     EDI, [EBP + 12]
+    	mov     ECX, ARRAYSIZE
+    	xor     EDX, EDX
+    	CLD
 
 SumLoop:
-    LODSD
-    add     EDX, EAX
-    loop    sumLoop
+    	LODSD
+    	add     EDX, EAX
+    	loop    sumLoop
 
-    mov     [EDI], EDX
+    	mov     [EDI], EDX
 
 
 	pop		EBP
@@ -600,40 +600,40 @@ AvgCalc PROC
 	push	EBP
 	mov		EBP, ESP
 	; move sum into EAX and ARRAYSIZE into EBX and divide, check EDX for remainder to figure out rounding
-    xor     EDX, EDX
-    mov     EAX, [EBP + 8]
-    mov     EDI, [EBP + 12]
+    	xor     EDX, EDX
+    	mov     EAX, [EBP + 8]
+    	mov     EDI, [EBP + 12]
 
-    cdq
-    mov     EBX, ARRAYSIZE
-    idiv    EBX
-    shr		EBX, 1					; shifts bits 1 to the right, dividing the divisor by 2
-    cmp     EDX, 0
-    jge     positiveRound
-    jl      negativeRound
+    	cdq
+   	mov     EBX, ARRAYSIZE
+    	idiv    EBX
+    	shr		EBX, 1					; shifts bits 1 to the right, dividing the divisor by 2
+    	cmp     EDX, 0
+    	jge     positiveRound
+    	jl      negativeRound
 
 positiveRound:
-    cmp		EDX, EBX				; compares remainder and (divisor/2), if remainder is greater, rounds up, if not rounds down
-    jge		RoundUp
-    jl      AvgDone
+    	cmp		EDX, EBX				; compares remainder and (divisor/2), if remainder is greater, rounds up, if not rounds down
+    	jge		RoundUp
+    	jl      AvgDone
 
 RoundUp:
-    inc     EAX
-    jmp     AvgDone
+    	inc     EAX
+    	jmp     AvgDone
 
 negativeRound:
-    neg     EDX
-    cmp		EDX, EBX				; compares remainder and (divisor/2), if remainder is greater, rounds up, if not rounds down
-    jge		RoundDown
-    jl      AvgDone
+    	neg     EDX
+    	cmp		EDX, EBX				; compares remainder and (divisor/2), if remainder is greater, rounds up, if not rounds down
+   	jge		RoundDown
+    	jl      AvgDone
 
 RoundDown:
-    dec     EAX
-    jmp     AvgDone
+    	dec     EAX
+    	jmp     AvgDone
 
 AvgDone: 
-    mov     [EDI], EAX
-    pop		EBP
+    	mov     [EDI], EAX
+    	pop		EBP
 	RET     8
 
 AvgCalc ENDP
@@ -686,12 +686,12 @@ PrintAvg ENDP
 ;			None
 ; _________________________________________________________________________________________________________________
 Farewell PROC
-		push	EBP
-	mov		EBP, ESP
-	mov		EDX, [EBP + 8]	
+	push	EBP
+	mov	EBP, ESP
+	mov	EDX, [EBP + 8]	
 	call	WriteString
-	pop		EBP
-	RET		4
+	pop	EBP
+	RET	4
 Farewell ENDP
 
 END main
