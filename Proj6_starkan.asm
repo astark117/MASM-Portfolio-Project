@@ -6,7 +6,7 @@ TITLE STRING PRIMITIVES & MACROS   (Proj6_starkan.asm)
 ; Course number/section:   CS271 Section: 400
 ; Project Number: 6                 Due Date: 3/17/2024
 ; Description: This program will accept 10 integer inputs from the user. These inputs must be converted to SDWORD values and validated. Then the
-;				values will be displayed. Following that the sum and average of the values will be calculated and displayed.
+;		values will be displayed. Following that the sum and average of the values will be calculated and displayed.
 ; ___________________________________________________________________________________________________________________________________________________
 
 
@@ -680,10 +680,10 @@ PrintAvg ENDP
 ; Postconditions:None
 ;
 ; Receives:
-;			[EBP + 8]	= address of array (string)
+;	[EBP + 8]	= address of array (string)
 ;
 ; Returns: 
-;			None
+;	None
 ; _________________________________________________________________________________________________________________
 Farewell PROC
 	push	EBP
